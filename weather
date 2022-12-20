@@ -1,0 +1,37 @@
+from tkinter import *
+import requests
+
+import json
+
+
+root = Tk()
+root.title("Your Local Weather Report")
+root.resizable(width = True, height = True )
+
+def cityLookup():
+
+ city.get()
+
+ try:
+     API_key = ""
+     weather_URL = requests.get("http://api.openweathermap.org/data/2.5/weather?appid=" + API_key + "&q=" + city.get())
+     weather_Request = json.loads(weather_URL.content)
+     print("Your forecast for today is: " + str(weather_Request))
+ except Exception as e:
+        "Error"
+
+
+myLabel = Label(root, text=cityLookup())
+
+
+
+
+city = Entry(root)
+city.pack()
+
+cityButton = Button(root, Text="Enter a City: ", command=cityLookup)
+cityButton.pack()
+
+
+
+root.mainloop()
